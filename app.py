@@ -7,10 +7,11 @@ from sqlalchemy import DateTime
 from pytz import timezone
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:hadoop@localhost/test_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@localhost/test_db"
 db = SQLAlchemy(app, session_options={'autocommit': True})
 
-class User(db.Model):
+# 클래스명이 테이블명
+class User_test(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(10), nullable=False)
     email = db.Column(db.String(50), nullable=False)
@@ -19,9 +20,9 @@ class User(db.Model):
 db.drop_all()
 db.create_all()
 
-db.session.add(User(username="Flask", email="example@example.com"))
+db.session.add(User_test(username="Flask", email="example@example.com"))
 
-users = User.query.all()
+users = User_test.query.all()
 
 # # MySQL Connector using pymysql
 # pymysql.install_as_MySQLdb()
